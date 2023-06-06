@@ -39,8 +39,8 @@ export default class AxisChart extends BaseChart {
 	}
 
 	setMeasures() {
-		if (this.data.datasets.length <= 1) {
-			this.config.showLegend = 0;
+		if (!(this.data.datasets.length > 0 && this.rawChartArgs.data.datasets[0].name?.length > 0)) {
+			this.config.showLegend = false;
 			this.measures.paddings.bottom = 30;
 		}
 	}
@@ -704,7 +704,8 @@ export default class AxisChart extends BaseChart {
 
 	renderLegend() {
 		let s = this.data;
-		if (s.datasets.length > 1) {
+		//if (s.datasets.length > 1) {
+		if (s.datasets.length > 0 && this.rawChartArgs.data.datasets[0]?.name.length > 0) {
 			super.renderLegend(s.datasets);
 		}
 	}
