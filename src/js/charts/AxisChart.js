@@ -80,6 +80,7 @@ export default class AxisChart extends BaseChart {
 		}
 
 		this.config.xIsSeries = axisOptions.xIsSeries || 0;
+		this.config.seriesLabelSpaceRatio = axisOptions.labelSpaceRatio; // || SERIES_LABEL_SPACE_RATIO;
 		this.config.shortenYAxisNumbers = axisOptions.shortenYAxisNumbers || 0;
 		this.config.seriesLabelDirection = axisOptions.labelDirection || 'horizontal';
 
@@ -409,7 +410,8 @@ export default class AxisChart extends BaseChart {
 					s.xAxis.calcLabels = this.config.seriesLabelDirection === 'diagonal' ? s.xAxis.labels : getShortenedLabels(
 						this.width,
 						s.xAxis.labels,
-						this.config.xIsSeries
+						this.config.xIsSeries,
+						this.config.seriesLabelSpaceRatio,
 					);
 
 					return s.xAxis;
