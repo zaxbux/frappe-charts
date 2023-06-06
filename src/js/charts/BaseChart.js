@@ -325,6 +325,16 @@ export default class BaseChart {
 		this.height = height - getExtraHeight(this.measures);
 	}
 
+	getMinSize() {
+		const width = getExtraWidth(this.measures);
+		const height = getExtraHeight(this.measures);
+
+		return {
+			width,
+			height,
+		}
+	}
+
 	updateNav() {
 		if (this.config.isNavigable) {
 			this.makeOverlay();
