@@ -806,11 +806,13 @@ export default class AxisChart extends BaseChart {
 			});
 		});
 
-		// Note: Doesn't work as tooltip is absolutely positioned
-		this.tip.container.addEventListener("click", () => {
-			let index = this.tip.container.getAttribute("data-point-index");
-			this.setCurrentDataPoint(index);
-		});
+		if (this.config.showTooltip) {
+			// Note: Doesn't work as tooltip is absolutely positioned
+			this.tip.container.addEventListener("click", () => {
+				let index = this.tip.container.getAttribute("data-point-index");
+				this.setCurrentDataPoint(index);
+			});
+		}
 	}
 
 	updateOverlay() {

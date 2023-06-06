@@ -49,7 +49,7 @@ export default class BaseChart {
 		this.colors = this.validateColors(options.colors, this.type);
 
 		this.config = {
-			showTooltip: 1, // calculate
+			showTooltip: options.showTooltip, // calculate
 			showLegend:
 				typeof options.showLegend !== "undefined"
 					? options.showLegend
@@ -165,6 +165,8 @@ export default class BaseChart {
 	}
 
 	makeTooltip() {
+		if (!this.config.showTooltip) return;
+
 		this.tip = new SvgTip({
 			parent: this.container,
 			colors: this.colors,
@@ -266,6 +268,7 @@ export default class BaseChart {
 	}
 
 	updateTipOffset(x, y) {
+		if (!this.config.showTooltip) return;
 		this.tip.offset = {
 			x: x,
 			y: y,
