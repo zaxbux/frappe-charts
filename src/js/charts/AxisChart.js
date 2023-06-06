@@ -81,6 +81,7 @@ export default class AxisChart extends BaseChart {
 
 		this.config.xIsSeries = axisOptions.xIsSeries || 0;
 		this.config.shortenYAxisNumbers = axisOptions.shortenYAxisNumbers || 0;
+		this.config.seriesLabelDirection = axisOptions.labelDirection || 'horizontal';
 
 		this.config.formatTooltipX = options.tooltipOptions.formatTooltipX;
 		this.config.formatTooltipY = options.tooltipOptions.formatTooltipY;
@@ -400,11 +401,12 @@ export default class AxisChart extends BaseChart {
 				{
 					mode: this.config.xAxisMode,
 					height: this.height,
+					labelDirection: this.config.seriesLabelDirection,
 					// pos: 'right'
 				},
 				function () {
 					let s = this.state;
-					s.xAxis.calcLabels = getShortenedLabels(
+					s.xAxis.calcLabels = this.config.seriesLabelDirection === 'diagonal' ? s.xAxis.labels : getShortenedLabels(
 						this.width,
 						s.xAxis.labels,
 						this.config.xIsSeries

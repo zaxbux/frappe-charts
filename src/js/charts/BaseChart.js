@@ -25,7 +25,7 @@ import {
 import { getColor, isValidColor } from "../utils/colors";
 import { runSMILAnimation } from "../utils/animation";
 import { downloadFile, prepareForExport } from "../utils/export";
-import { deepClone } from "../utils/helpers";
+import { deepClone, getStringWidth } from "../utils/helpers";
 
 export default class BaseChart {
 	constructor(parent, options) {
@@ -120,9 +120,7 @@ export default class BaseChart {
 	}
 
 	configure() {
-		let height = this.argHeight;
-		this.baseHeight = height;
-		this.height = height - getExtraHeight(this.measures);
+		this.updateHeight(this.argHeight);
 
 		// Bind window events
 		this.boundDrawFn = () => this.draw(true);
@@ -307,6 +305,16 @@ export default class BaseChart {
 			components.forEach((c) => c.make());
 			this.updateNav();
 		}
+	}
+
+	updateHeight(height) {
+		this.baseHeight = height;
+		if (this.rawChartArgs.axisOptions?.labelDirection === 'diagonal') {
+			const longestLabel = this.data.labels.reduce((p, c) => c.length > p.length ? c : p, '')
+			const seriesLabelHeight = (getStringWidth(longestLabel, 4.5) * Math.sqrt(2)) / 2
+			this.measures.paddings.bottom += seriesLabelHeight;
+		}
+		this.height = height - getExtraHeight(this.measures);
 	}
 
 	updateNav() {

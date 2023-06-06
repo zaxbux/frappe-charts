@@ -415,9 +415,13 @@ function makeVertLine(x, label, y1, y2, options = {}) {
 		y: y1 > y2 ? y1 + LABEL_MARGIN : y1 - LABEL_MARGIN - FONT_SIZE,
 		dy: FONT_SIZE + "px",
 		"font-size": FONT_SIZE + "px",
-		"text-anchor": "middle",
+		"text-anchor": options.direction === 'diagonal' ? 'end' : "middle",
 		innerHTML: label + "",
 	});
+
+	if (options.direction === 'diagonal') {
+		text.setAttribute('transform', `rotate(-45, 0, ${y1}) translate(${-FONT_SIZE / 2}, ${-FONT_SIZE / 2})`)
+	}
 
 	let line = createSVG("g", {
 		transform: `translate(${x}, 0)`,
@@ -597,6 +601,7 @@ export function xLine(x, label, height, options = {}) {
 		stroke: options.stroke,
 		className: options.className,
 		lineType: options.lineType,
+		direction: options.labelDir,
 	});
 }
 

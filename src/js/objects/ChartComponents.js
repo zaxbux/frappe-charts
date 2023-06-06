@@ -280,6 +280,7 @@ let componentConfigs = {
 				xLine(position, data.calcLabels[i], this.constants.height, {
 					mode: this.constants.mode,
 					pos: this.constants.pos,
+					labelDir: this.constants.labelDirection,
 				})
 			);
 		},
