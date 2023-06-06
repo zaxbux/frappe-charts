@@ -77,6 +77,10 @@ export default class BaseChart {
 		if (!this.title.length) {
 			m.titleHeight = 0;
 		}
+		this.titleColor = options.titleColor
+		this.centerTitle = options.centerTitle ?? false;
+		this.measures.titleFontSize = options.titleFontSize ?? m.titleFontSize;
+		this.measures.titleHeight = options.titleFontSize + 8
 		if (!this.config.showLegend) m.legendHeight = 0;
 		this.argHeight = options.height || m.baseHeight;
 
@@ -231,13 +235,14 @@ export default class BaseChart {
 		if (this.title.length) {
 			this.titleEL = makeText(
 				"title",
-				m.margins.left,
+				this.centerTitle ? /* '50%' */ this.baseWidth / 2 : m.margins.left,
 				m.margins.top,
 				this.title,
 				{
 					fontSize: m.titleFontSize,
-					fill: "#666666",
+					fill: this.titleColor ?? "#666666",
 					dy: m.titleFontSize,
+					textAnchor: this.centerTitle ? 'middle' : undefined
 				}
 			);
 		}
