@@ -80,7 +80,7 @@ export default class BaseChart {
 		this.titleColor = options.titleColor
 		this.centerTitle = options.centerTitle ?? false;
 		this.measures.titleFontSize = options.titleFontSize ?? m.titleFontSize;
-		this.measures.titleHeight = options.titleFontSize + 8
+		this.measures.titleHeight = this.measures.titleFontSize + 8
 		if (!this.config.showLegend) m.legendHeight = 0;
 		this.argHeight = options.height || m.baseHeight;
 
